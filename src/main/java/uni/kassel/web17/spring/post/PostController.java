@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+//RestController searcher the class for annotations 
+//defining particular endpoints 
 @RestController
 public class PostController {
 	
@@ -21,8 +23,9 @@ public class PostController {
   
 	
 	@RequestMapping("/post/add")
-	public void addPost(@RequestParam("title") String str) {
+	public String addPost(@RequestParam("title") String str) {
 		postService.addPostFromTitle(str);
+		return new String("Yu just added the Comment:" + str);
 	}
 
 
