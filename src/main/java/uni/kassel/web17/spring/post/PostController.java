@@ -30,11 +30,11 @@ public class PostController {
 		
 		PostObj po = new PostObj();
 		po.setTitle(str);
-		po.setId(IdCounter.nextId.get());
+		po.setId(IdCounter.nextId());
 		po.setTime(System.currentTimeMillis());
 		
 		postService.addPostFromTitle(po);
-		return new String("You just added the Comment:" + str);
+		return new String("You just added the Comment:" + str + " with the id " + po.getId());
 	}
 	
 	@RequestMapping("/post/id")
