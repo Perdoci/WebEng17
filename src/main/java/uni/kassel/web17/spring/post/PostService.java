@@ -11,14 +11,17 @@ public class PostService {
 	
 	private List<PostObj> posts = new LinkedList<>();
 	private List<String> postTitles = new LinkedList<>();
+	private List<String> tempPostTitles = new LinkedList<>();
 
 	public List<String> getPostTitles() {
 //	posts.add(new Date().toString());
 //	posts.add("post2");
+		tempPostTitles.clear();
 		for (PostObj postObj : posts) {
 			postTitles.add(postObj.getTitle());
 		}
-		return postTitles;
+		tempPostTitles = postTitles;
+		return tempPostTitles;
 	}
 	
 	public String getPostById(int id){
