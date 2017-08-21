@@ -1,5 +1,6 @@
 package uni.kassel.web17.spring.post;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PostService {
 	
 	private List<PostObj> posts = new LinkedList<>();
-	private HashMap<String,String> postTitles = new HashMap<>();
-	private HashMap<String,String> tempPostTitles = new HashMap<>();
+	private HashMap<String,Date> postTitles = new HashMap<>();
+	private HashMap<String,Date> tempPostTitles = new HashMap<>();
 
-	public HashMap<String, String> getPostTitles() {
+	public HashMap<String, Date> getPosts() {
 //	posts.add(new Date().toString());
 //	posts.add("post2");
 		tempPostTitles.clear();
 		for (PostObj postObj : posts) {
 			String title = postObj.getTitle();
-			String time = "" + postObj.getTime();
+			Date time =  postObj.getTime();
 			postTitles.put(title, time);
 		}
 		tempPostTitles = postTitles;
@@ -39,14 +40,14 @@ public class PostService {
 		}
 		if(found == false){
 			PostObj postObj = new PostObj();
-			postObj.setTitle("no post found with the id: " + id);
+			postObj.setTitle("No post found with the id " + id);
 			post = postObj;
 
 		}
 		return post;
 	}
 	
-	public void addPostFromTitle(PostObj po){
+	public void addPost(PostObj po){
 		posts.add(po);
 	}
 
