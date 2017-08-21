@@ -1,8 +1,10 @@
 package uni.kassel.web17.spring.post;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,16 +18,28 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 	
+	
 	@RequestMapping("/post")
 	public List<String> getPosts() {
-		return postService.getPosts();
+		return postService.getPostTitles();
 	}
   
 	
 	@RequestMapping("/post/add")
 	public String addPost(@RequestParam("title") String str) {
-		postService.addPostFromTitle(str);
-		return new String("Yu just added the Comment:" + str);
+		
+		PostObj po = new PostObj();
+		po.setTitle(str);
+		po.setId(IdCounter.nextId.get());
+		po.setTime(System.currentTimeMillis());
+		
+		postService.addPostFromTitle(po);
+		return new String("You just added the Comment:" + str);
+	}
+	
+	@RequestMapping("/post/id")
+	public String getPostById(@RequestParam("id") int id) {
+		return postService.getPostById(id);
 	}
 
 

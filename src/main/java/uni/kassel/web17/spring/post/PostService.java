@@ -9,16 +9,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Service
 public class PostService {
 	
-	private List<String> posts = new LinkedList<>();
+	private List<PostObj> posts = new LinkedList<>();
+	private List<String> postTitles = new LinkedList<>();
 
-	public List<String> getPosts() {
+	public List<String> getPostTitles() {
 //	posts.add(new Date().toString());
 //	posts.add("post2");
-		return posts;
+		for (PostObj postObj : posts) {
+			postTitles.add(postObj.getTitle());
+		}
+		return postTitles;
 	}
 	
-	public void addPostFromTitle(String str){
-		posts.add(str);
+	public String getPostById(int id){
+		String post = null;
+		
+		for (PostObj postObj : posts) {
+			if(postObj.getId()== id){
+				post = postObj.getTitle();
+			}
+		}
+		if(post.equals("null")){
+			return "No post found with that id";
+		}
+		else 
+		return post;
+	}
+	
+	public void addPostFromTitle(PostObj po){
+		posts.add(po);
 	}
 }
 
