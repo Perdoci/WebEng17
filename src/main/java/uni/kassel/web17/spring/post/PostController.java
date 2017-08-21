@@ -1,14 +1,13 @@
 package uni.kassel.web17.spring.post;
 
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-
-import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 //RestController searcher the class for annotations 
 //defining particular endpoints 
@@ -19,13 +18,13 @@ public class PostController {
 	private PostService postService;
 	
 	
-	@RequestMapping("/post")
+	@RequestMapping(value = "/post", method = GET)
 	public List<String> getPosts() {
 		return postService.getPostTitles();
 	}
   
 	
-	@RequestMapping("/post/add")
+	@RequestMapping(value = "/post/add", method = POST)
 	public String addPost(@RequestParam("title") String str) {
 		
 		PostObj po = new PostObj();
