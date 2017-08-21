@@ -26,21 +26,41 @@ public class PostService {
 	
 	public String getPostById(int id){
 		String post = null;
+		boolean found = false;
 		
 		for (PostObj postObj : posts) {
 			if(postObj.getId()== id){
 				post = postObj.getTitle();
+				found =true;
 			}
 		}
-		if(post.equals("null")){
+		if(found == false){
 			return "No post found with that id";
-		}
-		else 
+		}else{
+
 		return post;
+		}
 	}
 	
 	public void addPostFromTitle(PostObj po){
 		posts.add(po);
+	}
+
+	public String deletePostById(int id) {
+		boolean found = false;
+		String notify = "Error deleting post by id!";
+
+		for (PostObj postObj : posts) {
+			if(postObj.getId()== id){
+				posts.remove(postObj);
+				found = true;
+				notify = "Post with id " + id + " deleted succesfully";
+			}
+		}
+		if(found == false){
+			notify =  "Post with id " + id + " not found";
+		}
+		return  notify;
 	}
 }
 

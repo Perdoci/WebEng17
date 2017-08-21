@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -37,11 +38,15 @@ public class PostController {
 		return new String("You just added the Comment:" + str + " with id " + po.getId());
 	}
 	
-	@RequestMapping("/post/{id}")
+	@RequestMapping(value = "/post/{id}", method = GET)
 	public String getPostById(@PathVariable int id) {
-
 		return postService.getPostById(id);
 	}
+
+    @RequestMapping(value = "/post/{id}", method = DELETE)
+    public String deletePostById(@PathVariable int id) {
+        return postService.deletePostById(id);
+    }
 
 
 }
