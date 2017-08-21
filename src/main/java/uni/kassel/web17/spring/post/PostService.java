@@ -1,5 +1,6 @@
 package uni.kassel.web17.spring.post;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,36 +11,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PostService {
 	
 	private List<PostObj> posts = new LinkedList<>();
-	private List<String> postTitles = new LinkedList<>();
-	private List<String> tempPostTitles = new LinkedList<>();
+	private HashMap<String,String> postTitles = new HashMap<>();
+	private HashMap<String,String> tempPostTitles = new HashMap<>();
 
-	public List<String> getPostTitles() {
+	public HashMap<String, String> getPostTitles() {
 //	posts.add(new Date().toString());
 //	posts.add("post2");
 		tempPostTitles.clear();
 		for (PostObj postObj : posts) {
-			postTitles.add(postObj.getTitle());
+			String title = postObj.getTitle();
+			String time = "" + postObj.getTime();
+			postTitles.put(title, time);
 		}
 		tempPostTitles = postTitles;
 		return tempPostTitles;
 	}
 	
-	public String getPostById(int id){
-		String post = null;
+	public PostObj getPostById(int id){
+		PostObj post = null;
 		boolean found = false;
 		
 		for (PostObj postObj : posts) {
 			if(postObj.getId()== id){
-				post = postObj.getTitle();
 				found =true;
+				post = postObj;
 			}
 		}
 		if(found == false){
-			return "No post found with that id";
-		}else{
+			PostObj postObj = new PostObj();
+			postObj.setTitle("no post found with the id: " + id);
+			post = postObj;
 
-		return post;
 		}
+		return post;
 	}
 	
 	public void addPostFromTitle(PostObj po){
