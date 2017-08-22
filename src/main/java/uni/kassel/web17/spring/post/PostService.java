@@ -5,15 +5,16 @@ import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.repo.PostRepo;
 import uni.kassel.web17.spring.repo.UserRepo;
 import uni.kassel.web17.spring.user.User;
+import uni.kassel.web17.spring.user.UserService;
 
 @Service
 public class PostService {
 	@Autowired
 	private PostRepo postRepo;
-	@Autowired
-	private UserRepo userRepo;
-
-
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserRepo userRepo;
 
 	public Iterable<PostObj> getPosts() {
 
@@ -27,10 +28,12 @@ public class PostService {
 
     /*TODO add post to the local database*/
 	public void addPost(PostObj po){
+       /* User user = userRepo.findByEmail("mlesniak@micromata.de");
+        po.setAuthor(user);*/
 
-		User author = userRepo.findByEmail("mlesniak@micromata.de");
-		po.setAuthor(author);
-		postRepo.save(po);
+        //posts need a user as a reason of stating optional=false at the relation declaration
+        po.setAuthor(userService.getCurrentUser());
+        postRepo.save(po);
 	}
 
 	public void deletePostById(int id) {
