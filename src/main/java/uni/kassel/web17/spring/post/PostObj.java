@@ -1,6 +1,7 @@
 package uni.kassel.web17.spring.post;
 
 import org.hibernate.annotations.CreationTimestamp;
+import uni.kassel.web17.spring.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,8 +12,10 @@ public class PostObj {
     @Id
     @GeneratedValue
     private Integer id;
+    @ManyToOne(optional = false)
+    private User author;
 
-    @Column(length = 155555)
+    @Column(length = 500)
     private String title;
 
     @CreationTimestamp
@@ -50,4 +53,13 @@ public class PostObj {
 
         return time;
     }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
 }

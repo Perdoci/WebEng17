@@ -1,7 +1,8 @@
-package uni.kassel.web17.spring.post;
+package uni.kassel.web17.spring.repo;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import uni.kassel.web17.spring.post.PostObj;
 
 import java.util.List;
 
