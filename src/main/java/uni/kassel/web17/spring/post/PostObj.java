@@ -1,24 +1,27 @@
 package uni.kassel.web17.spring.post;
 
-import com.sun.javafx.beans.IDProperty;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "post")
 public class PostObj {
 
     @Id
     @GeneratedValue
+    @Column(name="id")
     private Integer id;
+
     private String title;
+
+    @CreationTimestamp
+    @Column(name="time")
     private Date time;
 
     public PostObj(){
-        id = IdCounter.nextId();
-        time = new Date(System.currentTimeMillis());
+
     }
 
     public void setTitle(String title) {
@@ -31,11 +34,11 @@ public class PostObj {
         return title;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
 
         return id;
     }

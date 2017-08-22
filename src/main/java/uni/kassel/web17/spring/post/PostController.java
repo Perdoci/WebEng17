@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class PostController {
         return postService.getPosts();
     }
 
-    /***
+    /**
      *
      * @param post object that gets created using
      *            the constructor through mapping attributes
@@ -35,8 +36,9 @@ public class PostController {
      * @return notification message
      */
     @RequestMapping(value = "/post/add", method = POST)
-    public void addPost(@RequestBody PostObj post) {
+    public String addPost(@RequestBody PostObj post) {
         postService.addPost(post);
+        return "http://127.0.0.1:8080/post/" + post.getId();
     }
 
     @RequestMapping(value = "/post/{id}", method = GET)
