@@ -6,18 +6,15 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "post")
 public class PostObj {
 
     @Id
     @GeneratedValue
-    @Column(name="id")
     private Integer id;
 
     private String title;
 
     @CreationTimestamp
-    @Column(name="time")
     private Date time;
 
     public PostObj(){
