@@ -20,7 +20,7 @@ import uni.kassel.web17.spring.user.User;
 
 @EnableSwagger2
 @SpringBootApplication
-public class Main implements CommandLineRunner{
+public class Main{
 	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
 
@@ -37,25 +37,6 @@ public class Main implements CommandLineRunner{
                 .paths(PathSelectors.any())
                 .build();
 
-	}
-
-	@Autowired
-	private UserRepo userRepo;
-
-	@Override
-	public void run(String... args) throws Exception {
-		// We use this approach to insert a user into the database until signup works.
-		User user = userRepo.findByEmail("mlesniak@micromata.de");
-		if (user != null) {
-			LOG.info("User mlesniak@micromata.de exists.");
-			return;
-		}
-
-		user = new User();
-		user.setEmail("mlesniak@micromata.de");
-		user.setPassword("foo");
-		userRepo.save(user);
-		LOG.info("User mlesniak@micromata.de created");
 	}
 
 }

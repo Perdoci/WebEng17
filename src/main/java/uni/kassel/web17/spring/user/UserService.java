@@ -15,4 +15,8 @@ public class UserService {
         return userRepo.findByEmail("cele@yahoo.com");
     }
 
+    public User getUser(String email, String password) {
+        User user = userRepo.login(email, password);
+        return user;
+    }
 }
