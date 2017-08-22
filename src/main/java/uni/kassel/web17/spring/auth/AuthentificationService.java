@@ -1,5 +1,7 @@
 package uni.kassel.web17.spring.auth;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.repo.UserRepo;
@@ -11,6 +13,7 @@ public class AuthentificationService {
 
     @Autowired
     private UserService userService;
+
     public static class UserToken {
         public User user;
         public String token;
@@ -22,9 +25,12 @@ public class AuthentificationService {
             return null;
         }
 
-        UserToken token = new UserToken();
-        token.user = user;
-        token.token = "<JWT-TOKEN>";
-        return token;
+        String secret = "its actually not a secret";
+        String token = Jwts.builder().setSubject(email).signWith(SignatureAlgorithm.HS512, secret).compact();
+
+        UserToken userToken = new UserToken();
+        userToken.user = user;
+        userToken.token = token;
+        return userToken;
     }
 }

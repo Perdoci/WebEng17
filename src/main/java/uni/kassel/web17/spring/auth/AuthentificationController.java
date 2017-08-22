@@ -30,7 +30,7 @@ public class AuthentificationController {
     }
 
 
-    @RequestMapping(value = "login", method = POST)
+    @RequestMapping(value = "/login", method = POST)
     public AuthentificationService.UserToken login(@RequestBody UserLogin userLogin) {
         // Test, that retrieval of user works.
         AuthentificationService.UserToken token = authService.login(userLogin.email, userLogin.password);
