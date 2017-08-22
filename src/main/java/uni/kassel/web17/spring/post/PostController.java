@@ -22,7 +22,7 @@ public class PostController {
     private PostService postService;
 
 
-    @RequestMapping(value = "/post", method = GET)
+    @RequestMapping(value = "/api/post", method = GET)
     public Iterable<PostObj> getPosts() {
 
         return postService.getPosts();
@@ -35,19 +35,19 @@ public class PostController {
      *             with the params in the request
      * @return notification message
      */
-    @RequestMapping(value = "/post/add", method = POST)
+    @RequestMapping(value = "/api/post/add", method = POST)
     public String addPost(@RequestBody PostObj post) {
         postService.addPost(post);
         return "http://127.0.0.1:8080/post/" + post.getId();
     }
 
-    @RequestMapping(value = "/post/{id}", method = GET)
+    @RequestMapping(value = "/api/post/{id}", method = GET)
     public PostObj getPostById(@PathVariable int id) {
 
         return postService.getPostById(id);
     }
 
-    @RequestMapping(value = "/post/{id}", method = DELETE)
+    @RequestMapping(value = "/api/post/{id}", method = DELETE)
     public void deletePostById(@PathVariable int id) {
 
          postService.deletePostById(id);

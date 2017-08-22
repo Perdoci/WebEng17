@@ -45,3 +45,4 @@ Temporary Items
 '.idea'
 *.mv.db
 *.trace.db
+'.idea/'
