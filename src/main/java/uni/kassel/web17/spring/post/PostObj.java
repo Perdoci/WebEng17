@@ -1,10 +1,19 @@
 package uni.kassel.web17.spring.post;
 
+import com.sun.javafx.beans.IDProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class PostObj {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String title;
-    private int id;
     private Date time;
 
     public PostObj(){

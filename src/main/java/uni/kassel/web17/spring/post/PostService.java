@@ -1,38 +1,34 @@
 package uni.kassel.web17.spring.post;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class PostService {
-	
-	private List<PostObj> posts = new LinkedList<>();
-	private HashMap<String,Date> postTitles = new HashMap<>();
-	private HashMap<String,Date> tempPostTitles = new HashMap<>();
+	@Autowired
+	private PostRepo postRepo;
 
-	public HashMap<String, Date> getPosts() {
-//	posts.add(new Date().toString());
-//	posts.add("post2");
-		tempPostTitles.clear();
+	private HttpServletRequest request;
+
+	public Iterable<PostObj> getPosts() {
+	/*	tempPostTitles.clear();
 		for (PostObj postObj : posts) {
 			String title = postObj.getTitle();
 			Date time =  postObj.getTime();
 			postTitles.put(title, time);
 		}
-		tempPostTitles = postTitles;
-		return tempPostTitles;
+		tempPostTitles = postTitles;*/
+		return postRepo.findAll();
 	}
-	
+
 	public PostObj getPostById(int id){
-		PostObj post = null;
+	/*	PostObj post = null;
 		boolean found = false;
-		
-		for (PostObj postObj : posts) {
+
+		Iterable<PostObj> all = postRepo.findAll();
+		for (PostObj postObj : all) {
 			if(postObj.getId()== id){
 				found =true;
 				post = postObj;
@@ -44,20 +40,22 @@ public class PostService {
 			post = postObj;
 
 		}
-		return post;
+		return post;*/
+		return postRepo.findOne(id);
 	}
-	
+
+    /*TODO add post to the local database*/
 	public void addPost(PostObj po){
-		posts.add(po);
+		postRepo.save(po);
 	}
 
-	public String deletePostById(int id) {
-		boolean found = false;
+	public void deletePostById(int id) {
+		/*boolean found = false;
 		String notify = "Error deleting post by id!";
-
-		for (PostObj postObj : posts) {
+		Iterable<PostObj> all = postRepo.findAll();
+		for (PostObj postObj : all) {
 			if(postObj.getId()== id){
-				posts.remove(postObj);
+				postRepo.delete(postObj);
 				found = true;
 				notify = "Post with id " + id + " deleted succesfully";
 			}
@@ -65,7 +63,8 @@ public class PostService {
 		if(found == false){
 			notify =  "Post with id " + id + " not found";
 		}
-		return  notify;
+		return  notify;*/
+		postRepo.delete(id);
 	}
 }
 

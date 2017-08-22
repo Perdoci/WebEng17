@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -20,16 +22,21 @@ public class PostController {
 
 
     @RequestMapping(value = "/post", method = GET)
-    public HashMap<String,Date> getPosts() {
+    public Iterable<PostObj> getPosts() {
 
         return postService.getPosts();
     }
 
-
+    /***
+     *
+     * @param post object that gets created using
+     *            the constructor through mapping attributes
+     *             with the params in the request
+     * @return notification message
+     */
     @RequestMapping(value = "/post/add", method = POST)
-    public String addPost(@RequestBody PostObj post) {
+    public void addPost(@RequestBody PostObj post) {
         postService.addPost(post);
-        return new String("You just added a new post.\n");
     }
 
     @RequestMapping(value = "/post/{id}", method = GET)
@@ -39,9 +46,9 @@ public class PostController {
     }
 
     @RequestMapping(value = "/post/{id}", method = DELETE)
-    public String deletePostById(@PathVariable int id) {
+    public void deletePostById(@PathVariable int id) {
 
-        return postService.deletePostById(id);
+         postService.deletePostById(id);
     }
 
 
