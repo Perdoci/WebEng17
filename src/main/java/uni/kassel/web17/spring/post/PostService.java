@@ -46,6 +46,7 @@ public class PostService {
 
     /*TODO add post to the local database*/
 	public void addPost(PostObj po){
+
 		postRepo.save(po);
 	}
 

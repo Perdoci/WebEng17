@@ -12,6 +12,7 @@ public class PostObj {
     @GeneratedValue
     private Integer id;
 
+    @Column(length = 155555)
     private String title;
 
     @CreationTimestamp
