@@ -1,5 +1,7 @@
 package uni.kassel.web17.spring.post;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.repo.PostRepo;
@@ -9,6 +11,8 @@ import uni.kassel.web17.spring.user.UserService;
 
 @Service
 public class PostService {
+	private static final Logger LOG = LoggerFactory.getLogger(PostService.class);
+
 	@Autowired
 	private PostRepo postRepo;
     @Autowired
@@ -17,7 +21,8 @@ public class PostService {
     private UserRepo userRepo;
 
 	public Iterable<PostObj> getPosts() {
-
+		User currentUser = userService.getCurrentUser();
+		LOG.info("Current user is {} " , currentUser);
 		return postRepo.findAll();
 	}
 

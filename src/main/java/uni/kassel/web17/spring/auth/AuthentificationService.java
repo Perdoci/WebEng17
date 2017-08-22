@@ -3,6 +3,8 @@ package uni.kassel.web17.spring.auth;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.user.User;
 import uni.kassel.web17.spring.user.UserService;
@@ -22,6 +24,13 @@ public class AuthentificationService {
                 .getBody();
     }
 
+    public void setUser(Integer id, String email) {
+        User user = new User();
+        user.setId(id);
+        user.setEmail(email);
+        UsernamePasswordAuthenticationToken secAuth = new UsernamePasswordAuthenticationToken(user, null);
+        SecurityContextHolder.getContext().setAuthentication(secAuth);
+    }
     public static class UserToken {
         public User user;
         public String token;
