@@ -30,7 +30,7 @@ public class FirstTest  {
         }
         String s = content.toString();
 
-        Assert.assertTrue(s.contains("comment-5"));
+        Assert.assertTrue(s.contains("michael"));
 
         in.close();
         con.disconnect();
