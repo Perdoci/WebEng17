@@ -15,7 +15,6 @@ public class User {
     @JsonIgnore
     private String password;
 
-
     public void setEmail(String email) {
         this.email = email;
     }

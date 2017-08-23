@@ -31,8 +31,12 @@ public class CommentController {
 
     //add comment to post
     @RequestMapping(value = "/api/{id}/comment", method = POST)
-    public void addCommentToPost(@PathVariable Integer id, @RequestBody NewComment message) {
+    public String addCommentToPost(@PathVariable Integer id, @RequestBody NewComment message) {
+        if (userService.isAnonymous()) {
+            return "You need to be logged in to write comments.";
+        }
         commentService.addCommentToPost(id, message.getMessage());
+        return "Comment added successfully";
     }
 
 

@@ -15,6 +15,23 @@ public class UserService {
 
     @Autowired
     private UserRepo userRepo;
+    /**
+     * Sets the current user to anonymous.
+     */
+    public void setAnonymous() {
+        setCurrentUser(-1, "<anonymous>");
+    }
+
+
+    /**
+     * Check if the current user is not authenticated.
+     *
+     * @return true if the user is not authenticated.
+     */
+    public boolean isAnonymous() {
+        return getCurrentUser().getId() == -1;
+    }
+
 
 
     public User getCurrentUser() {

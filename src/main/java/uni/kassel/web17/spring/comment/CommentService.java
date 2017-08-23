@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uni.kassel.web17.spring.post.Post;
 import uni.kassel.web17.spring.post.PostService;
 import uni.kassel.web17.spring.repo.CommentRepo;
@@ -50,6 +51,9 @@ public class CommentService {
         commentRepo.save(comment);
     }
 
+    //annotation takes care the persistence of data in the database is correct after
+    //running the function annotated
+    @Transactional
     public void addCommentToPost(Integer id, String message) {
         LOG.debug("Trying to add comment to post. id={}", id);
 
