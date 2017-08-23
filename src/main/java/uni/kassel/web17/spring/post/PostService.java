@@ -17,8 +17,6 @@ public class PostService {
 	private PostRepo postRepo;
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepo userRepo;
 
 	public Iterable<PostObj> getPosts() {
 		User currentUser = userService.getCurrentUser();
@@ -42,6 +40,11 @@ public class PostService {
 	}
 
 	public void deletePostById(int id) {
+		// Validate that user is allowed to delete post.
+		PostObj post = postRepo.findOne(id);
+		if (!post.getAuthor().equals(userService.getCurrentUser())) {
+			throw new IllegalStateException("User not allowed to delete post");
+		}
 
 		postRepo.delete(id);
 	}
