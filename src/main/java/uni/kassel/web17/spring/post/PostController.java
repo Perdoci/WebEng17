@@ -16,10 +16,16 @@ public class PostController {
     private PostService postService;
 
 
-    @RequestMapping(value = "/api/post", method = GET)
-    public Iterable<Post> getPosts() {
+    @RequestMapping(value = "/api/post/all", method = GET)
+    public Iterable<Post> getAllPosts() {
 
-        return postService.getPosts();
+        return postService.getAllPosts();
+    }
+
+    @RequestMapping(value = "/api/post", method = GET)
+    public Iterable<Post> getMyPosts() {
+
+        return postService.getPostsWithoutComments();
     }
 
     /**

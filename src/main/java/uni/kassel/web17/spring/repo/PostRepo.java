@@ -14,6 +14,11 @@ public interface PostRepo extends CrudRepository<Post, Integer> {
     @Query( "select po from Post po order by po.time asc ")
     List<Post> findAll();
 
+    //the order of the columns specified to select in the new object should be the same as in the
+    //contructor of Post class.
+    @Query( "select new Post(po.id, po.author, po.time, po.title) from Post po order by po.time asc ")
+    List<Post> findAllWithoutComments();
+
     @Query( "select po from Post po where po.id = :id ")
     Post findOne(@Param("id")Integer integer);
 

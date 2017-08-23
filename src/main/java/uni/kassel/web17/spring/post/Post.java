@@ -23,6 +23,18 @@ public class Post {
     @CreationTimestamp
     private Date time;
 
+    public Post(){
+
+    }
+
+    public Post(Integer id, User author, Date time, String title){
+
+        this.id = id;
+        this.author = author;
+        this.time = time;
+        this.title = title;
+    }
+
     @OneToMany
     private List<Comment> comments;
 
@@ -39,9 +51,6 @@ public class Post {
         comments.add(comment);
     }
 
-    public Post(){
-
-    }
 
     public void setTitle(String title) {
 

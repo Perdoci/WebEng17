@@ -17,10 +17,15 @@ public class PostService {
     @Autowired
     private UserService userService;
 
-	public Iterable<Post> getPosts() {
+	public Iterable<Post> getAllPosts() {
 		User currentUser = userService.getCurrentUser();
-		LOG.info("Returning posts. user={}", userService.getCurrentUser().getEmail());
+		LOG.info("Returning posts. user={}", currentUser.getEmail());
 		return postRepo.findAll();
+	}
+	public Iterable<Post> getPostsWithoutComments() {
+		User currentUser = userService.getCurrentUser();
+		LOG.info("Returning posts. user={}", currentUser.getEmail());
+		return postRepo.findAllWithoutComments();
 	}
 
 	public Post getPostById(int id){
