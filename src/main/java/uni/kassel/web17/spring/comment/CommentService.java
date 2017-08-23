@@ -24,7 +24,7 @@ public class CommentService {
         //search for the comment by id
         Comment comment = commentRepo.findCommentById(id);
 
-        if(comment.getAuthor().equals(userService.getCurrentUser())){
+        if(!comment.getAuthor().equals(userService.getCurrentUser())){
             LOG.info("Deleting comment not allowed. user={}, id={}", userService.getCurrentUser().getEmail(), id);
             throw new IllegalStateException("User not allowed to delete comment");
 
@@ -32,5 +32,20 @@ public class CommentService {
         LOG.info("Deleting comment. user={}, id={}", userService.getCurrentUser().getEmail(), id);
         postService.deleteComment(comment);
 
+    }
+
+    public void editCommentByID(Integer id, Comment newComment) {
+
+        //search for the comment by id
+        Comment comment = commentRepo.findCommentById(id);
+
+        if(!comment.getAuthor().equals(userService.getCurrentUser())){
+            LOG.info("Editing comment not allowed. user={}, id={}", userService.getCurrentUser().getEmail(), id);
+            throw new IllegalStateException("User not allowed to edit comment");
+
+        }
+        LOG.info("Editing comment. user={}, id={}", userService.getCurrentUser().getEmail(), id);
+        comment.setMessage(newComment.getMessage());
+        commentRepo.save(comment);
     }
 }

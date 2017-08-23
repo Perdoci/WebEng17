@@ -75,5 +75,6 @@ public class PostService {
 		post.getComments().remove(comment);
 		postRepo.save(post);
 	}
+
 }
 
