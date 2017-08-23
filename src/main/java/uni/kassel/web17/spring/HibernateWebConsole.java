@@ -1,4 +1,4 @@
-package uni.kassel.web17.spring.post;
+package uni.kassel.web17.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

@@ -1,11 +1,14 @@
 package uni.kassel.web17.spring.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import uni.kassel.web17.spring.comment.Comment;
 import uni.kassel.web17.spring.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -13,6 +16,7 @@ public class Post {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Integer id;
     @ManyToOne(optional = false)
     private User author;
@@ -23,8 +27,11 @@ public class Post {
     @CreationTimestamp
     private Date time;
 
-    public Post(){
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
+    public Post(){
+        comments = new LinkedList<>();
     }
 
     public Post(Integer id, User author, Date time, String title){
@@ -33,10 +40,9 @@ public class Post {
         this.author = author;
         this.time = time;
         this.title = title;
+        comments = new LinkedList<>();
     }
 
-    @OneToMany
-    private List<Comment> comments;
 
 
     public List<Comment> getComments() {
@@ -62,10 +68,13 @@ public class Post {
         return title;
     }
 
+
+    @JsonIgnore  //post id cannot be given as parameter when creating new posts
     public void setId(Integer id) {
         this.id = id;
     }
 
+    @JsonProperty
     public Integer getId() {
 
         return id;
@@ -88,7 +97,5 @@ public class Post {
     public User getAuthor() {
         return author;
     }
-
-
 
 }

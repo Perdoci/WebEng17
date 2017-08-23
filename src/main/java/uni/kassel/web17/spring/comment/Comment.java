@@ -10,7 +10,7 @@ public class Comment {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Column(length = 60000)
     private String message;
@@ -60,5 +60,24 @@ public class Comment {
                 ", text='" + message + '\'' +
                 ", createdAt=" + time +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Comment comment = (Comment) o;
+        return id != null ? id.equals(comment.id) : comment.id == null;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
