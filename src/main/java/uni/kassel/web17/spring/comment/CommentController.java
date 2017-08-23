@@ -1,10 +1,7 @@
 package uni.kassel.web17.spring.comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uni.kassel.web17.spring.post.PostService;
 import uni.kassel.web17.spring.user.UserService;
 
@@ -31,4 +28,20 @@ public class CommentController {
     public void deleteComment(@PathVariable Integer id) {
         commentService.deleteCommentById(id);
     }
+
+    //add comment to post
+    @RequestMapping(value = "/api/{id}/comment", method = POST)
+    public void addCommentToPost(@PathVariable Integer id, @RequestBody NewComment message) {
+        commentService.addCommentToPost(id, message.getMessage());
+    }
+
+
+    public static class NewComment {
+        private String message;
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
 }

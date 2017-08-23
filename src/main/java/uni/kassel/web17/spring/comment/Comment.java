@@ -20,11 +20,15 @@ public class Comment {
     @ManyToOne(optional = false)
     private User author;
 
+    public Comment(){
+        time = new Date(System.currentTimeMillis());
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

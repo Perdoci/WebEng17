@@ -18,6 +18,7 @@ public class Post {
     @GeneratedValue
     @JsonIgnore
     private Integer id;
+
     @ManyToOne(optional = false)
     private User author;
 

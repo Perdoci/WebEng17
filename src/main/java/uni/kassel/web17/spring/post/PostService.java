@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.comment.Comment;
+import uni.kassel.web17.spring.repo.CommentRepo;
 import uni.kassel.web17.spring.repo.PostRepo;
 import uni.kassel.web17.spring.user.User;
 import uni.kassel.web17.spring.user.UserService;
@@ -15,6 +16,8 @@ public class PostService {
 
 	@Autowired
 	private PostRepo postRepo;
+    @Autowired
+    private CommentRepo commentRepo;
     @Autowired
     private UserService userService;
 
@@ -76,5 +79,13 @@ public class PostService {
 		postRepo.save(post);
 	}
 
+    public void addCommentToPost(Comment newComment, Integer id) {
+        Post post = postRepo.findOne(id);
+        if (post == null) {
+            throw new IllegalArgumentException("No post found for comment");
+        }
+        post.getComments().add(newComment);
+        postRepo.save(post);
+    }
 }
 

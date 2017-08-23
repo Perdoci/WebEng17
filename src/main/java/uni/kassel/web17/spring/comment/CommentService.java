@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uni.kassel.web17.spring.post.Post;
 import uni.kassel.web17.spring.post.PostService;
 import uni.kassel.web17.spring.repo.CommentRepo;
 import uni.kassel.web17.spring.user.UserService;
@@ -47,5 +48,18 @@ public class CommentService {
         LOG.info("Editing comment. user={}, id={}", userService.getCurrentUser().getEmail(), id);
         comment.setMessage(newComment.getMessage());
         commentRepo.save(comment);
+    }
+
+    public void addCommentToPost(Integer id, String message) {
+        LOG.debug("Trying to add comment to post. id={}", id);
+
+        //create new Comment
+        Comment newComment = new Comment();
+        newComment.setMessage(message);
+        newComment.setAuthor(userService.getCurrentUser());
+        //save in the comment repo to generate id for commment
+        commentRepo.save(newComment);
+        postService.addCommentToPost(newComment, id);
+
     }
 }
