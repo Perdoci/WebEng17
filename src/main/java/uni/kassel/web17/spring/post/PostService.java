@@ -20,17 +20,21 @@ public class PostService {
 
 	public Iterable<PostObj> getPosts() {
 		User currentUser = userService.getCurrentUser();
-		LOG.info("Current user is {} " , currentUser);
+		LOG.info("Returning posts. user={}", userService.getCurrentUser().getEmail());
 		return postRepo.findAll();
 	}
 
 	public PostObj getPostById(int id){
+		LOG.info("Retrieving post. user={}, id={}", userService.getCurrentUser().getEmail(), id);
+
 
 		return postRepo.findOne(id);
 	}
 
     /*TODO add post to the local database*/
 	public void addPost(PostObj po){
+		LOG.info("Adding post. user={}, title={}", userService.getCurrentUser().getEmail(), po.getTitle());
+
        /* User user = userRepo.findByEmail("mlesniak@micromata.de");
         po.setAuthor(user);*/
 
@@ -43,8 +47,11 @@ public class PostService {
 		// Validate that user is allowed to delete post.
 		PostObj post = postRepo.findOne(id);
 		if (!post.getAuthor().equals(userService.getCurrentUser())) {
+			LOG.info("Deleting post not allowed. user={}, id={}", userService.getCurrentUser().getEmail(), id);
 			throw new IllegalStateException("User not allowed to delete post");
 		}
+
+		LOG.info("Deleting post. user={}, id={}", userService.getCurrentUser().getEmail(), id);
 
 		postRepo.delete(id);
 	}
