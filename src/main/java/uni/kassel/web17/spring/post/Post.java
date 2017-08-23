@@ -1,13 +1,15 @@
 package uni.kassel.web17.spring.post;
 
 import org.hibernate.annotations.CreationTimestamp;
+import uni.kassel.web17.spring.comment.Comment;
 import uni.kassel.web17.spring.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class PostObj {
+public class Post {
 
     @Id
     @GeneratedValue
@@ -21,7 +23,23 @@ public class PostObj {
     @CreationTimestamp
     private Date time;
 
-    public PostObj(){
+    @OneToMany
+    private List<Comment> comments;
+
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
+
+    public Post(){
 
     }
 

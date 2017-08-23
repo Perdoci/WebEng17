@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.GenericFilterBean;
+import uni.kassel.web17.spring.user.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +18,12 @@ public class JWTFilter extends GenericFilterBean {
     private static final Logger LOG = LoggerFactory.getLogger(JWTFilter.class);
 
     private AuthentificationService authService;
+    private UserService userService;
 
-    public JWTFilter(AuthentificationService authService) {
+    public JWTFilter(AuthentificationService authService, UserService userService) {
+
         this.authService = authService;
+        this.userService = userService;
     }
 
     @Override
@@ -44,7 +48,7 @@ public class JWTFilter extends GenericFilterBean {
             String id = body.getId();
             LOG.info("Successful login from {} / {}", email, id);
             //Set user globally for following operations.
-            authService.setUser(Integer.parseInt(body.getId()), body.getSubject());
+            userService.setCurrentUser(Integer.parseInt(body.getId()), body.getSubject());
             filterChain.doFilter(request, response);
         } catch (SignatureException e) {
             LOG.warn("Token is invalid: {}", token);

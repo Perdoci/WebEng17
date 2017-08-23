@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.repo.PostRepo;
-import uni.kassel.web17.spring.repo.UserRepo;
 import uni.kassel.web17.spring.user.User;
 import uni.kassel.web17.spring.user.UserService;
 
@@ -18,13 +17,13 @@ public class PostService {
     @Autowired
     private UserService userService;
 
-	public Iterable<PostObj> getPosts() {
+	public Iterable<Post> getPosts() {
 		User currentUser = userService.getCurrentUser();
 		LOG.info("Returning posts. user={}", userService.getCurrentUser().getEmail());
 		return postRepo.findAll();
 	}
 
-	public PostObj getPostById(int id){
+	public Post getPostById(int id){
 		LOG.info("Retrieving post. user={}, id={}", userService.getCurrentUser().getEmail(), id);
 
 
@@ -32,7 +31,7 @@ public class PostService {
 	}
 
     /*TODO add post to the local database*/
-	public void addPost(PostObj po){
+	public void addPost(Post po){
 		LOG.info("Adding post. user={}, title={}", userService.getCurrentUser().getEmail(), po.getTitle());
 
        /* User user = userRepo.findByEmail("mlesniak@micromata.de");
@@ -45,7 +44,7 @@ public class PostService {
 
 	public void deletePostById(int id) {
 		// Validate that user is allowed to delete post.
-		PostObj post = postRepo.findOne(id);
+		Post post = postRepo.findOne(id);
 		if (!post.getAuthor().equals(userService.getCurrentUser())) {
 			LOG.info("Deleting post not allowed. user={}, id={}", userService.getCurrentUser().getEmail(), id);
 			throw new IllegalStateException("User not allowed to delete post");
@@ -53,7 +52,7 @@ public class PostService {
 
 		LOG.info("Deleting post. user={}, id={}", userService.getCurrentUser().getEmail(), id);
 
-		postRepo.delete(id);
+		postRepo.deletePostBy(id);
 	}
 }
 

@@ -3,6 +3,7 @@ package uni.kassel.web17.spring.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import uni.kassel.web17.spring.repo.UserRepo;
@@ -26,5 +27,14 @@ public class UserService {
 
         User user = userRepo.login(email, password);
         return user;
+    }
+
+    public void setCurrentUser(Integer id, String email) {
+        LOG.debug("Setting user context. id={}, user={}", id, email);
+        User user = new User();
+        user.setId(id);
+        user.setEmail(email);
+        UsernamePasswordAuthenticationToken secAuth = new UsernamePasswordAuthenticationToken(user, null);
+        SecurityContextHolder.getContext().setAuthentication(secAuth);
     }
 }

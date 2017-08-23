@@ -1,13 +1,7 @@
 package uni.kassel.web17.spring.post;
 
-import java.util.Date;
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -23,7 +17,7 @@ public class PostController {
 
 
     @RequestMapping(value = "/api/post", method = GET)
-    public Iterable<PostObj> getPosts() {
+    public Iterable<Post> getPosts() {
 
         return postService.getPosts();
     }
@@ -36,13 +30,13 @@ public class PostController {
      * @return notification message
      */
     @RequestMapping(value = "/api/post/add", method = POST)
-    public String addPost(@RequestBody PostObj post) {
+    public String addPost(@RequestBody Post post) {
         postService.addPost(post);
         return "http://127.0.0.1:8080/post/" + post.getId();
     }
 
     @RequestMapping(value = "/api/post/{id}", method = GET)
-    public PostObj getPostById(@PathVariable int id) {
+    public Post getPostById(@PathVariable int id) {
 
         return postService.getPostById(id);
     }

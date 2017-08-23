@@ -37,15 +37,6 @@ public class AuthentificationService {
                 .getBody();
     }
 
-    public void setUser(Integer id, String email) {
-        LOG.debug("Setting user context. id={}, user={}", id, email);
-
-        User user = new User();
-        user.setId(id);
-        user.setEmail(email);
-        UsernamePasswordAuthenticationToken secAuth = new UsernamePasswordAuthenticationToken(user, null);
-        SecurityContextHolder.getContext().setAuthentication(secAuth);
-    }
     public static class UserToken {
         public User user;
         public String token;
@@ -53,6 +44,7 @@ public class AuthentificationService {
 
     public UserToken login(String email, String password) {
         String hashedPassword = hashPassword(password);
+        LOG.info("hashed password is={}", hashedPassword);
         User user = userService.getUser(email, hashedPassword);
         if (user == null) {
             LOG.info("User unable to login. user={}", email);
@@ -61,7 +53,7 @@ public class AuthentificationService {
         LOG.info("User successfully logged in. user={}", email);
 
 
-        String token = Jwts.builder().setSubject(email).setId(user.getEmail().toString()).signWith(SignatureAlgorithm.HS512, SECRET).compact();
+        String token = Jwts.builder().setSubject(email).setId(user.getId().toString()).signWith(SignatureAlgorithm.HS512, SECRET).compact();
 
         UserToken userToken = new UserToken();
         userToken.user = user;
@@ -71,6 +63,5 @@ public class AuthentificationService {
 
     private String hashPassword(String password) {
         return DigestUtils.sha512Hex(salt + password);
-
     }
 }

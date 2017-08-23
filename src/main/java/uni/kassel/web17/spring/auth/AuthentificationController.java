@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uni.kassel.web17.spring.repo.UserRepo;
-import uni.kassel.web17.spring.user.User;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
