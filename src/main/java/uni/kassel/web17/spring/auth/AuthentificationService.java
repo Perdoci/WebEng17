@@ -2,6 +2,7 @@ package uni.kassel.web17.spring.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,7 +38,8 @@ public class AuthentificationService {
     }
 
     public UserToken login(String email, String password) {
-        User user = userService.getUser(email, password);
+        String hashedPassword = hashPassword(password);
+        User user = userService.getUser(email, hashedPassword);
         if (user == null) {
             return null;
         }
@@ -49,5 +51,10 @@ public class AuthentificationService {
         userToken.user = user;
         userToken.token = token;
         return userToken;
+    }
+
+    private String hashPassword(String password) {
+        return DigestUtils.sha512Hex(password);
+
     }
 }
