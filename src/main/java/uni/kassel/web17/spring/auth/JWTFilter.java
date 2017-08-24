@@ -5,7 +5,6 @@ import io.jsonwebtoken.SignatureException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.GenericFilterBean;
 import uni.kassel.web17.spring.user.UserService;
 
@@ -36,7 +35,7 @@ public class JWTFilter extends GenericFilterBean {
 
         if (!StringUtils.startsWith(auth, "Bearer ")) {
             // Allow requests without a token.
-            LOG.debug("No token provided, setting to anonymous user");
+
             userService.setAnonymous();
             filterChain.doFilter(request, response);
             return;
@@ -48,12 +47,10 @@ public class JWTFilter extends GenericFilterBean {
             Claims body = (Claims) authService.parseToken(token);
             String email = body.getSubject();
             String id = body.getId();
-            LOG.info("Successful login from {} / {}", email, id);
             //Set user globally for following operations.
             userService.setCurrentUser(Integer.parseInt(body.getId()), body.getSubject());
             filterChain.doFilter(request, response);
         } catch (SignatureException e) {
-            LOG.warn("Token is invalid: {}", token);
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
