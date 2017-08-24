@@ -1,4 +1,4 @@
-package uni.kassel.web17.spring;
+package uni.kassel.web17.spring.post;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -12,6 +12,6 @@ public class HibernateWebConsole {
 
     @Bean(initMethod="start",destroyMethod="stop")
     public org.h2.tools.Server h2WebConsonleServer () throws SQLException {
-        return org.h2.tools.Server.createWebServer("-web","-webAllowOthers","-webDaemon","-webPort", "8082");
+        return org.h2.tools.Server.createWebServer("-web","-webAllowOthers","-webDaemon","-webPort", "8083");
     }
 }

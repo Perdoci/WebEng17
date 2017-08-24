@@ -40,7 +40,7 @@ public class PostController {
      *             with the params in the request
      * @return notification message
      */
-    @RequestMapping(value = "/api/post/add", method = POST)
+    @RequestMapping(value = "/api/post", method = POST)
     public String addPost(@RequestBody Post post) {
         // A pragmatic approach to security which does not use much framework-specific magic. While other approaches
         // with annotations, etc. are possible they are much more complex while this is quite easy to understand and
@@ -49,7 +49,7 @@ public class PostController {
             return "Not allowed to add post. You must be logged in to post something.";
         }
         postService.addPost(post);
-        return "http://127.0.0.1:8080/post/" + post.getId();
+        return "http://127.0.0.1:8080/api/post/" + post.getId();
     }
 
     @RequestMapping(value = "/api/post/{id}", method = GET)
