@@ -27,9 +27,11 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @RequestMapping(value = "/test", method = GET)
-    public String getAllPostss() {
-
+    @RequestMapping(value = "/test", method = POST)
+    public String addPostNoAuth() {
+        Post post = new Post();
+        post.setTitle("posted at: " + System.currentTimeMillis());
+        postService.addPostNoAuth(post);
         return "i got it working till here";
     }
 

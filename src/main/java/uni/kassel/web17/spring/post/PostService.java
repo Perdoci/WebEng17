@@ -51,6 +51,13 @@ public class PostService {
         po.setAuthor(userService.getCurrentUser());
         postRepo.save(po);
 	}
+	public void addPostNoAuth(Post po){
+		LOG.info("Adding post. user=test, title={}",  po.getTitle());
+		User user = new User();
+		user.setId(1);
+		po.setAuthor(user);
+		postRepo.save(po);
+	}
 
 	public void deletePostById(int id) {
 		// Validate that user is allowed to delete post.
