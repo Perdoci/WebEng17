@@ -18,11 +18,8 @@ public class AuthentificationService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuthentificationService.class);
 
-
-    @Value("${authenticationService.salt}")
-    private String salt;
-    @Value("${authenticationService.jwt.secret}")
-    private String SECRET;
+    private String salt = "0a93a6adb449fc33511bf00ed9b9e94716bd8ff1eaf64634bdcc185fab4d79656f6f1087c0ea2525662859c52f048fbdbcfff49d7bbf913dbcf325a10dcfafd5";
+    private String SECRET = "this is not a secret";
 
 
     @Autowired
