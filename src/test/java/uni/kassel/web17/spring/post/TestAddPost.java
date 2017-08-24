@@ -35,7 +35,7 @@ public class TestAddPost{
         HttpEntity<Post> entity = new HttpEntity<>(post, headers);
         ResponseEntity<String> response = rest.postForEntity("http://localhost:" + port + "/api/post", entity, String.class);
 
-        String url = (String) response.getBody();
+        String url =  response.getBody();
         Post storedPost = rest.getForObject(url, Post.class);
         assertEquals(title, storedPost.getTitle());
         assertEquals("michael", storedPost.getAuthor().getEmail());

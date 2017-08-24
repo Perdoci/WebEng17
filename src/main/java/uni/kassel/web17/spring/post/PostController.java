@@ -27,6 +27,13 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @RequestMapping(value = "/test", method = GET)
+    public String getAllPostss() {
+
+        return "i got it working till here";
+    }
+
+
     @RequestMapping(value = "/api/post", method = GET)
     public Iterable<Post> getMyPosts() {
 
